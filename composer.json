@@ -1,0 +1,26 @@
+{
+  "name": "Neconix/GerberWorks",
+  "description": "Helper classes for work with the gerber files",
+  "type": "library",
+  "keywords": ["gerber", "pcb"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Neconix",
+      "email": "prostoe@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "prostoe@gmail.com",
+    "issues": "https://github.com/Neconix/GerberWorks/issues"
+  },
+  "require": {
+    "php" : "^5.5 || ^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Neconix\\gerberworks\\": ""
+    }
+  }
+}
