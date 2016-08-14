@@ -11,20 +11,25 @@ Helper classes for work with the gerber files.
 
 **Installation**
 
-Either run
+Add to your `composer.json` file:
 
-`$ php composer.phar require Neconix/GerberWorks "*"`
-
-or add
-
-`"Neconix/GerberWorks": "*"`
-
-to the require section of your `composer.json` file.
+```
+  "repositories": [
+     {
+       "type": "vcs",
+       "url": "https://github.com/Neconix/GerberWorks.git"
+     }
+   ],
+   
+   "require": {
+     "neconix/gerberworks": "@dev"
+   }
+```
 
 **Example**
 
 ```php
-$gerber = new GerberFile();
+$gerber = new GerberEngine();
 $gerber->Parse('pcb.gbr');
 foreach ($gerber->Commands as $command) {
     echo $command;
