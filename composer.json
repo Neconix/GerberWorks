@@ -1,5 +1,5 @@
 {
-  "name": "Neconix/GerberWorks",
+  "name": "neconix/gerberworks",
   "description": "Helper classes for work with the gerber files",
   "type": "library",
   "keywords": ["gerber", "pcb"],
@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Neconix\\gerberworks\\": ""
+      "gerberworks\\": "gerberworks/"
     }
   }
 }
