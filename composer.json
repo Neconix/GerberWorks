@@ -18,9 +18,18 @@
   "require": {
     "php" : "^5.5 || ^7.0"
   },
+
+  "require-dev": {
+    "phpunit/phpunit": "5.4.*"
+  },
+
   "autoload": {
     "psr-4": {
       "gerberworks\\": "api/"
     }
+  },
+
+  "autoload-dev": {
+    "psr-4": { "gerberworks\\tests\\": "tests/" }
   }
 }

@@ -13,7 +13,7 @@ class GerberApertureCmd extends GerberCommand
      */
     public $Code;
     /**
-     * @var string Aperture type - C, R, O
+     * @var string Aperture type - C, R, O, U (Unknown)
      */
     public $Type;
     /**
@@ -51,7 +51,8 @@ class GerberApertureCmd extends GerberCommand
                         break;
                 }
         } else {
-            throw new ParseException("Aperture type not supported in \"$line\"");
+            //Unsupported aperture type
+            $this->Type = 'U';
         }
     }
 
