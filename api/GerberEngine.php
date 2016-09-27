@@ -126,6 +126,11 @@ class GerberEngine
         } else if (preg_match('/^%AD/', $line)) {
             $a = new GerberApertureCmd($line);
             $this->_graphicState->Apertures[$a->Code] = $a;
+            //Назначает апертуру по умолчанию - первую по списку,
+            //если не задана ранее
+            if ($this->_graphicState->CurrentAperture == null) {
+                $this->_graphicState->CurrentAperture = $a;
+            }
             return $a;
         } else {
             return new GerberCommand($line);
