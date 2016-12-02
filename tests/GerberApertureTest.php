@@ -26,6 +26,10 @@ class GerberApertureTest extends TestCase
         $this->assertEquals(0.12, $a->Params['D']);
         $this->assertEquals(0.03, $a->Params['H']);
 
+        $a = new GerberApertureCmd('%ADD2524C,1.49548*%');
+        $this->assertEquals(1.49548, $a->Params['D']);
+        $this->assertEquals('C', $a->Type);
+
         echo '[ OK ] Circle aperture test'.PHP_EOL;
     }
 

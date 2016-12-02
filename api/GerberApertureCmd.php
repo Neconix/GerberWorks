@@ -26,21 +26,16 @@ class GerberApertureCmd extends GerberCommand
         $this->Parse($line);
     }
 
-    public function Parse($line) {
+    public function Parse($line)
+    {
         //Finding aperture code
-        $c = preg_match('/(?<=ADD)\d{2}/', $line, $matches);
+        $c = preg_match('/((?<=ADD)\d{2,})([CRO])/', $line, $matches);
 
-        if ($c > 0) {
-            $this->Code = $matches[0];
-        } else {
-            throw new ParseException("Aperture code not found in string \"$line\"");
-        }
-
-        //Finding aperture type and params
-        $c = preg_match('/(?<=ADD\d{2})[CRO]/', $line, $matches);
-        $pc = preg_match('/(?<=,).*(?=\*)/', $line, $paramsMatches);
-        if ($c > 0) {
-            $this->Type = $matches[0];
+        if ($c > 0 && count($matches) === 3) {
+            $this->Code = $matches[1]; //Ex.: 10
+            $this->Type = $matches[2]; //Ex.: D
+            //Finding aperture params
+            $pc = preg_match('/(?<=,).*(?=\*)/', $line, $paramsMatches);
             if ($pc > 0)
                 switch ($this->Type) {
                     case 'C': $this->ParseCircleParams($paramsMatches[0]);
@@ -51,8 +46,8 @@ class GerberApertureCmd extends GerberCommand
                         break;
                 }
         } else {
-            //Unsupported aperture type
             $this->Type = 'U';
+            //throw new ParseException("Aperture code, type is not found in \"$line\"");
         }
     }
 
