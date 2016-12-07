@@ -54,8 +54,8 @@ class GerberMode extends GerberCommand
                 break;
             //Aperture command
             case 'G54':
-                //Команда выбора апертуры
-                if (preg_match('/(?<=D)\d{2}/', $line, $matches) === 1) {
+                //Aperture code
+                if (preg_match('/(?<=D)\d*/', $line, $matches) === 1) {
                     $apertureCode = $matches[0];
                     $graphicState->CurrentAperture = $graphicState->Apertures[$apertureCode];
                 } else
