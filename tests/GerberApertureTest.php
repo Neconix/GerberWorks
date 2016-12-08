@@ -78,13 +78,4 @@ class GerberApertureTest extends TestCase
         echo '[ OK ] Unknown aperture test'.PHP_EOL;
     }
 
-    public function testLoadTestFile1() {
-        $testfile = __DIR__.'/_test-files/plate1.gbr';
-        $engine = new GerberEngine();
-        $engine->Parse($testfile);
-        unset($engine);
-
-        echo '[ OK ] Parse test file:'.$testfile.PHP_EOL;
-    }
-
 }

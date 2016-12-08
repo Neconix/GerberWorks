@@ -86,7 +86,7 @@ class GerberEngine
 
         //Функциональные команды
         if (preg_match('/G(\d){2}/', $line)) {
-            $mode = $this->ParseMode($line);
+            return $this->ParseMode($line);
         }
 
         if ( preg_match('/^%/', $line) ) {
