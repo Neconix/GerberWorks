@@ -86,7 +86,9 @@ class GerberEngine
 
         //Функциональные команды
         if (preg_match('/G(\d){2}/', $line)) {
-            return $this->ParseMode($line);
+            $mode = $this->ParseMode($line);
+            if ($mode instanceof GerberApertureSelectCmd)
+                return $mode;
         }
 
         if ( preg_match('/^%/', $line) ) {
@@ -151,11 +153,23 @@ class GerberEngine
     /**
      * Разбирает строку с командой изменения режима
      * @param $line
-     * @return GerberMode
+     * @return GerberApertureSelectCmd|GerberMode
+     * @throws ParseException
      */
-    private function ParseMode($line) {
+    private function ParseMode($line)
+    {
         GerberMode::UpdateGraphicState($this->_graphicState, $line);
-        return new GerberMode($line);
+        if (GerberMode::FindModeCode($line) == 54) {
+            $c = new GerberApertureSelectCmd($line);
+            if ( array_key_exists($c->ApertureCode, $this->_graphicState->Apertures) ) {
+                $c->Aperture = $this->_graphicState->Apertures[$c->ApertureCode];
+                return $c;
+            } else {
+                throw new ParseException('Aperture not found', 0, null, $line);
+            }
+        } else {
+            return new GerberMode($line);
+        }
     }
 
     /**

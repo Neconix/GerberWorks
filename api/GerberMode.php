@@ -8,18 +8,25 @@ namespace gerberworks;
 
 class GerberMode extends GerberCommand
 {
+    /**
+     * @var int Mode type code
+     */
+    public $Code = 0;
+
     public function __construct($line)
     {
         parent::__construct($line);
+        $this->Code = static::FindModeCode($line);
     }
 
     /**
      * @param GerberGraphicState $graphicState
      * @param $line
+     * @throws ParseException
      */
-    public static function UpdateGraphicState(GerberGraphicState &$graphicState, $line) {
-        preg_match('/G(\d){2}/', $line, $matches);
-        $mode = $matches[0];
+    public static function UpdateGraphicState(GerberGraphicState &$graphicState, $line)
+    {
+        $mode = static::FindModeCode($line);
         switch ($mode) {
             //Linear interpolation
             case GerberGraphicState::LINEAR_INTERPOLATION:
@@ -59,11 +66,28 @@ class GerberMode extends GerberCommand
                     $apertureCode = $matches[0];
                     $graphicState->CurrentAperture = $graphicState->Apertures[$apertureCode];
                 } else
-                    throw new \InvalidArgumentException('Неверная команда выбора апертуры');
+                    throw new ParseException('Invalid aperture select command', 0, null, $line);
                 break;
             default:
                 ;
-                //$this->Code = $mode;
         }
     }
+
+    public static function FindModeCode($line)
+    {
+        preg_match('/(?<=G)\d{2}/', $line, $matches);
+        if (count($matches) > 0)
+            return $matches[0];
+        else
+            throw new ParseException('Invalid mode G-code specification', 0, null, $line);
+    }
+
+//    public static function FindApertureCode($line)
+//    {
+//        preg_match('/(?<=G)\d{2}/', $line, $matches);
+//        if (count($matches) > 0)
+//            return $matches[0];
+//        else
+//            throw new ParseException('Invalid mode G-code specification', 0, null, $line);
+//    }
 }

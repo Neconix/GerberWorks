@@ -6,7 +6,8 @@
 namespace gerberworks;
 
 
-class GerberCommand
+class
+GerberCommand
 {
     /**
      * @var int Номер строки команды
