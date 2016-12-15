@@ -86,6 +86,11 @@ class GerberCoord extends GerberCommand
      */
     public $Changed;
 
+    /**
+     * @var GerberCoord Previous coordinate
+     */
+    public $PrevCoordinate;
+
     public function __get($name)
     {
         if ($name == 'InGrid') {

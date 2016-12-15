@@ -6,7 +6,6 @@
 
 namespace gerberworks\tests;
 
-use gerberworks\GerberApertureCmd;
 use gerberworks\GerberEngine;
 use PHPUnit\Framework\TestCase;
 

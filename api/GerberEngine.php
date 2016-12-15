@@ -58,7 +58,8 @@ class GerberEngine
         $this->_graphicState = new GerberGraphicState();
     }
 
-    public function Parse($fileName) {
+    public function Parse($fileName)
+    {
         //Чтение конфигурации
         $lines = file($fileName, FILE_IGNORE_NEW_LINES);
         $lineNo = 0;
@@ -72,9 +73,16 @@ class GerberEngine
             }
 
             $this->Commands[] = $cmd;
+
+            if ($lineNo > 1) {
+                $cmd->PrevCommand = $this->Commands[$lineNo-2];
+                $cmd->PrevCommand->NextCommand = $cmd;
+            }
+
             if ($cmd instanceof GerberEndCmd)
                 break;
         }
+
     }
 
     /**
@@ -244,9 +252,13 @@ class GerberEngine
         //Выполняем анализ отклонения
         $this->AnalyzeGridDelta($cmd);
 
+        $cmd->PrevCoordinate = $this->LastCoordinate;
+
         //Сохраняем текущую координату как последнюю для последующих циклов обработки
         $this->LastCoordinate = $cmd;
         $this->LastAction = $cmd->Action;
+
+
 
         return $cmd;
     }

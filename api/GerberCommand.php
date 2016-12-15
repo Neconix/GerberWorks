@@ -10,9 +10,18 @@ class
 GerberCommand
 {
     /**
-     * @var int Номер строки команды
+     * @var int Command line number
      */
     public $Line;
+
+    /**
+     * @var GerberCommand Previous command
+     */
+    public $PrevCommand;
+    /**
+     * @var GerberCommand Next command
+     */
+    public $NextCommand;
 
     /**
      * @var string Source string of gerber command
