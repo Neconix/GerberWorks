@@ -171,6 +171,7 @@ class GerberEngine
             $c = new GerberApertureSelectCmd($line);
             if ( array_key_exists($c->ApertureCode, $this->_graphicState->Apertures) ) {
                 $c->Aperture = $this->_graphicState->Apertures[$c->ApertureCode];
+                $this->_graphicState->CurrentAperture = $c->Aperture;
                 return $c;
             } else {
                 throw new ParseException('Aperture not found', 0, null, $line);
