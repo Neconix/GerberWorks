@@ -46,8 +46,13 @@ class GerberApertureCmd extends GerberCommand
                         break;
                 }
         } else {
-            $this->Type = 'U';
-            //throw new ParseException("Aperture code, type is not found in \"$line\"");
+            $pc = preg_match('/((?<=ADD)\d{2,})/', $line, $matches);
+            if ($pc > 0) {
+                $this->Code = $matches[1];
+                $this->Type = 'U';
+            } else {
+                throw new ParseException("Aperture code, type is not found in \"$line\"");
+            }
         }
     }
 
