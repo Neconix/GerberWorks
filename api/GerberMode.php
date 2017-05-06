@@ -77,17 +77,9 @@ class GerberMode extends GerberCommand
     {
         preg_match('/(?<=G)\d{2}/', $line, $matches);
         if (count($matches) > 0)
-            return $matches[0];
+            return 'G'.$matches[0];
+            //return $matches[0];
         else
             throw new ParseException('Invalid mode G-code specification', 0, null, $line);
     }
-
-//    public static function FindApertureCode($line)
-//    {
-//        preg_match('/(?<=G)\d{2}/', $line, $matches);
-//        if (count($matches) > 0)
-//            return $matches[0];
-//        else
-//            throw new ParseException('Invalid mode G-code specification', 0, null, $line);
-//    }
 }
